@@ -18,14 +18,6 @@ const shop = [
   { name: '/pricing', value: 191 }
 ];
 
-const app = [
-  { name: '/shop', value: 789 },
-  { name: '/product-features', value: 676 },
-  { name: '/about', value: 564 },
-  { name: '/login', value: 234 },
-  { name: '/downloads', value: 191 }
-];
-
 const data = [
   {
     category: 'Website',
@@ -38,9 +30,14 @@ const data = [
     data: shop
   },
   {
-    category: 'Mobile App',
-    stat: '2,543',
-    data: app
+    category: 'Online Shop',
+    stat: '12,543',
+    data: shop
+  },
+  {
+    category: 'Online Shop',
+    stat: '12,543',
+    data: shop
   }
 ];
 
