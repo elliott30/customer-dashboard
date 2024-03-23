@@ -1,3 +1,6 @@
+import { auth } from "../auth"
+import { redirect } from 'next/navigation';
+
 import axios from 'axios';
 import { Card, Title, Text } from '@tremor/react';
 import { TicketsTable } from '../tables';
@@ -13,6 +16,16 @@ export default async function IndexPage({
 }: {
   searchParams: { q: string };
 }) {
+
+  // Check to see if logged in
+  const session = await auth()
+  if (!session) {
+      return redirect("api/auth/signin")
+  }
+  // Get access token to use in API calla
+  const { accessToken } = await auth()
+
+
   const search = searchParams.q ?? '';
 
   let tickets: Ticket[] = []; // Initialize tickets as an empty array
@@ -31,10 +44,12 @@ export default async function IndexPage({
       url: 'https://api.hubapi.com/crm/v3/objects/tickets/search',
       headers: { 
         'Content-Type': 'application/json', 
-        'Authorization': `Bearer ${process.env.HUBSPOT_PRIVATEAPP_TOKEN}`
+        'Authorization': `Bearer ${accessToken}`
       },
       data: requestBody
     });
+
+    console.log(response)
 
     tickets = response.data.results;
     
